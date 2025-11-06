@@ -1,44 +1,44 @@
-#qBreakpad
+# QBreakpad2
 
-[![Build status](https://travis-ci.org/buzzySmile/qBreakpad.svg?branch=master)](https://travis-ci.org/buzzySmile/qBreakpad)
+A fork of [qBreakpad](https://github.com/buzzySmile/qBreakpad) with personal modifications.
 
-qBreakpad is Qt library to use google-breakpad crash reporting facilities (and using it conviniently).
-Supports
-* Windows (but crash dump decoding will not work with MinGW compiler)
-* Linux
-* MacOS X
+Please be aware that this repository is for my own personal usages only and thus will never accept any kinds of feature requests.
 
-How to use
-----------------
-* Clone repository recursively
-```bash
-$ git clone --recursive https://github.com/buzzySmile/qBreakpad.git
+## Changes compared to the original project
+
+- Migrate the project from QMake to CMake.
+- Added support for building both shared library edition & static library edition (or only build one of them).
+- Removed the crash uploader. Some important features are missing (such as proxy & SSL) and it doesn't seem to be useful enough as well.
+- Updated [Google Breakpad](https://chromium.googlesource.com/breakpad/breakpad) to latest git master (currently it's [470771e32d0167c2654ecb9113dc56a3510b695f](https://chromium.googlesource.com/breakpad/breakpad/+/470771e32d0167c2654ecb9113dc56a3510b695f)).
+- Updated [Linux-Syscall-Support (LSS)](https://chromium.googlesource.com/linux-syscall-support) to latest git master (currently it's [29164a80da4d41134950d76d55199ea33fbb9613](https://chromium.googlesource.com/linux-syscall-support/+/29164a80da4d41134950d76d55199ea33fbb9613)).
+
+## License
+
+```text
+MIT License
+
+Copyright (C) 2009 Aleksey Palazhchenko
+Copyright (C) 2014 Sergey Shambir
+Copyright (C) 2016 Alexander Makarov
+Copyright (C) 2025 wangwenx190 (Yuhang ZHAO)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 ```
-* Build qBreakpad static library (qBreakpad/handler/)
-* Include "qBreakpad.pri" to your target Qt project
-```c++
-include($$PWD/{PATH_TO_QBREAKPAD}/qBreakpad.pri)
-```
-* Setup linking with "qBreakpad" library
-```c++
-QMAKE_LIBDIR += $$PWD/{PATH_TO_QBREAKPAD}/handler
-LIBS += -lqBreakpad
-```
-* Use ```QBreakpadHandler``` singleton class to enable automatic crash dumps generation on any failure; example:
-```c++
-#include <QBreakpadHandler.h>
 
-int main(int argc, char* argv[])
-{
-    ...
-    QBreakpadInstance.setDumpPath(QLatin1String("crashes"));
-    ...
-}
-```
-* Read Google Breakpad documentation to know further workflow
-
-Getting started with Google Breakpad
-----------------
-https://chromium.googlesource.com/breakpad/breakpad/+/master/docs/getting_started_with_breakpad.md
-
-Detail description about integration `qBreakpad` into your system and platform you could find in **[Wiki](https://github.com/buzzySmile/qBreakpad/wiki)**.
+This MIT license only apply to my own personal modifications, the original code of QBreakpad/Google Breakpad/LSS still use their original licenses.
